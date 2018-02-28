@@ -2,16 +2,8 @@
 #include "iostream"
 #include "GLAD/glad.h"
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-	glViewport(0, 0, width, height);				//调整OpenGL的视口区域
-}
-
-void processInput(GLFWwindow* window) {
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {//检查Esc键有没有按下
-		glfwSetWindowShouldClose(window, true);				//设置窗口关闭
-	}
-		
-}
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void processInput(GLFWwindow *window);
 
 int main() {
 	// 初始化glfw窗口
@@ -26,6 +18,8 @@ int main() {
 		glfwTerminate();		//如果出错，则终止进程
 		return -1;
 	}
+
+	glfwMakeContextCurrent(window);		//将窗口的上下文环境设置为当前主线程的上下文环境
 
 	//初始化glad
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -50,4 +44,14 @@ int main() {
 	}
 	glfwTerminate();								//终止进程
 	return 0;
+}
+void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+	glViewport(0, 0, width, height);				//调整OpenGL的视口区域
+}
+
+void processInput(GLFWwindow* window) {
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {//检查Esc键有没有按下
+		glfwSetWindowShouldClose(window, true);				//设置窗口关闭
+	}
+
 }
